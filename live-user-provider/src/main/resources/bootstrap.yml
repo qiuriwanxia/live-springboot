@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: live-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        group: DEFAULT_GROUP
