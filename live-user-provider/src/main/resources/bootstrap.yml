@@ -6,3 +6,5 @@ spring:
       discovery:
         server-addr: localhost:8848
         group: DEFAULT_GROUP
+server:
+  port: 82

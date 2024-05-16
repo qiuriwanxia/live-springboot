@@ -1,0 +1,14 @@
+server:
+  port: 81
+spring:
+  application:
+    name: live-api
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        group: DEFAULT_GROUP
+        namespace: 05e9183f-7ab2-45fb-8a8e-ed4e4caf2e63
+dubbo:
+  application:
+    name: live-api
