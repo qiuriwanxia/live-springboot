@@ -37,17 +37,6 @@ public class DubboTest {
         iUserRpcServiceConfig.setInterface(IUserRpc.class);
         iUserRpcServiceConfig.setRegistry(registryConfig);
         iUserRpcServiceConfig.setApplication(applicationConfig);
-//        iUserRpcServiceConfig.setRef(new IUserRpc() {
-//            @Override
-//            public String test() {
-//                return "成功！！！";
-//            }
-//
-//            @Override
-//            public UserDTO getByUserId(Long userId) {
-//                return null;
-//            }
-//        });
 
         //暴露服务
         iUserRpcServiceConfig.export();

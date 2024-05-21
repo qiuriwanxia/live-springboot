@@ -4,6 +4,9 @@
     <file url="file://$PROJECT_DIR$/live-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-common-interface/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/live-framework/live-framework-datasource-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/live-framework/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/live-framework/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-user-interface/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-user-interface/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-user-provider/src/main/java" charset="UTF-8" />
