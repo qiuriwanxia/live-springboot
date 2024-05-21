@@ -7,6 +7,7 @@ import org.example.dao.pojo.UserPO;
 import org.example.dto.UserDTO;
 import org.example.service.IUserService;
 import org.example.util.ConvertBeanUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +15,9 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
 
     @Resource
     private IUserMapper userMapper;
+
+    @Resource
+    private RedisTemplate<String,UserDTO> redisTemplate;
 
     private UserPO convertToUserPo(UserDTO userDTO) {
         return ConvertBeanUtils.convert(userDTO, UserPO.class);
@@ -23,15 +27,29 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
         return ConvertBeanUtils.convert(userPO, UserDTO.class);
     }
 
+    private static final String REDIS_KEY_PREFIX ="userinfo";
+
     public UserDTO getByUserId(Long userId) {
 
         if (userId == null) {
             return null;
         }
 
+        String key = REDIS_KEY_PREFIX.concat(userId.toString());
+
+        UserDTO userDTO = redisTemplate.opsForValue().get(key);
+
+        if (userDTO!=null){
+            return userDTO;
+        }
+
         UserPO userPO = userMapper.selectById(userId);
 
-        return convertToUserDTO(userPO);
+        UserDTO convertedToUserDTO = convertToUserDTO(userPO);
+
+        redisTemplate.opsForValue().set(key,convertedToUserDTO);
+
+        return convertedToUserDTO;
     }
 
     @Override

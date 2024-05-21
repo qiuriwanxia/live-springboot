@@ -20,8 +20,6 @@ public class ProviderApp {
         SpringApplication application = new SpringApplication(ProviderApp.class);
         application.setWebApplicationType(WebApplicationType.NONE);
         ConfigurableApplicationContext run = application.run(args);
-        ApplicationRunner bean = run.getBean(ApplicationRunner.class);
-        System.out.println("bean = " + bean);
 
     }
 }
