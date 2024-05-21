@@ -12,6 +12,7 @@
         <module>live-user-interface</module>
         <module>live-user-provider</module>
         <module>live-api</module>
+        <module>live-common-interface</module>
     </modules>
 
     <properties>

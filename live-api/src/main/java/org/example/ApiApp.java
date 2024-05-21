@@ -14,13 +14,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class ApiApp {
 
     public static void main(String[] args) {
-//        SpringApplication springApplication = new SpringApplication();
-//        springApplication.setWebApplicationType(WebApplicationType.SERVLET);
-//        ConfigurableApplicationContext run = springApplication.run(ApiApp.class);
-        ConfigurableApplicationContext run = SpringApplication.run(ApiApp.class);
-        ApiTestController bean = run.getBean(ApiTestController.class);
-        String test = bean.test();
-        System.out.println("test = " + test);
+        SpringApplication springApplication = new SpringApplication();
+        springApplication.setWebApplicationType(WebApplicationType.SERVLET);
+        ConfigurableApplicationContext run = springApplication.run(ApiApp.class);
+
     }
 
 }
