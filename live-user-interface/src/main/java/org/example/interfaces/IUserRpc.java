@@ -2,6 +2,9 @@ package org.example.interfaces;
 
 import org.example.dto.UserDTO;
 
+import java.util.List;
+import java.util.Map;
+
 public interface IUserRpc {
     String test();
 
@@ -11,4 +14,5 @@ public interface IUserRpc {
 
     boolean insertUserId(UserDTO userDTO);
 
+    Map<Long,UserDTO> batchQueryUserByIdList(List<Long> idList);
 }

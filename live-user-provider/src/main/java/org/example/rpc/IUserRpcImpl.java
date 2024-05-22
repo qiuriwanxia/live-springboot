@@ -7,6 +7,9 @@ import org.example.interfaces.IUserRpc;
 import org.example.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.Map;
+
 @DubboService
 public class IUserRpcImpl implements IUserRpc {
 
@@ -32,5 +35,10 @@ public class IUserRpcImpl implements IUserRpc {
     @Override
     public boolean insertUserId(UserDTO userDTO) {
         return userService.insertUserId(userDTO);
+    }
+
+    @Override
+    public Map<Long,UserDTO> batchQueryUserByIdList(List<Long> idList) {
+        return userService.batchQueryUserByIdList(idList);
     }
 }

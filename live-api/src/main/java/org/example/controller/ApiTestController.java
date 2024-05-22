@@ -3,10 +3,10 @@ package org.example.controller;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.example.dto.UserDTO;
 import org.example.interfaces.IUserRpc;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/test")
@@ -19,6 +19,11 @@ public class ApiTestController {
     @GetMapping("/get/{id}")
     public UserDTO getByUserId(@PathVariable("id")Long id){
         return iUserRpc.getByUserId(id);
+    }
+
+    @PostMapping("/batchQueryUserByIdList")
+    public Map<Long,UserDTO> batchQueryUserByIdList(@RequestBody List<Long> idList){
+        return iUserRpc.batchQueryUserByIdList(idList);
     }
 
     @GetMapping("/update/{id}/{nickName}")
