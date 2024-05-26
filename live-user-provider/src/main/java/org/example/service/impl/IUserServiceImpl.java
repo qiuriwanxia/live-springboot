@@ -6,6 +6,7 @@ import jakarta.annotation.Resource;
 import org.example.dao.mapper.IUserMapper;
 import org.example.dao.pojo.UserPO;
 import org.example.dto.UserDTO;
+import org.example.key.UserProviderCacheKey;
 import org.example.service.IUserService;
 import org.example.util.ConvertBeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -26,6 +27,9 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
     @Resource
     private RedisTemplate<String, UserDTO> redisTemplate;
 
+    @Resource
+    private UserProviderCacheKey userProviderCacheKey;
+
     private UserPO convertToUserPo(UserDTO userDTO) {
         return ConvertBeanUtils.convert(userDTO, UserPO.class);
     }
@@ -42,7 +46,6 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
         return ConvertBeanUtils.convert(userPO, UserDTO.class);
     }
 
-    private static final String REDIS_KEY_PREFIX = "userinfo";
 
     public UserDTO getByUserId(Long userId) {
 
@@ -50,7 +53,7 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
             return null;
         }
 
-        String key = REDIS_KEY_PREFIX.concat(userId.toString());
+        String key = userProviderCacheKey.buildUserInfoKey(userId.toString());
 
         UserDTO userDTO = redisTemplate.opsForValue().get(key);
 
@@ -89,7 +92,7 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
             return Maps.newHashMap();
         }
         //先从缓存中拿
-        List<String> keyList = idList.stream().map(id -> REDIS_KEY_PREFIX.concat(id.toString())).collect(Collectors.toList());
+        List<String> keyList = idList.stream().map(id -> userProviderCacheKey.buildUserInfoKey(id.toString())).collect(Collectors.toList());
 
         //multiGet 方法有可能返回null
         List<UserDTO> userDTOList = redisTemplate.opsForValue().multiGet(keyList).stream().filter(userDTO -> userDTO != null).collect(Collectors.toList());
@@ -119,7 +122,7 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
             userDTOList.addAll(queryUserUserDTOList);
 
             Map<String, UserDTO> keyUserDTOMap = userDTOList.stream().collect(Collectors.toMap((UserDTO d) -> {
-                return REDIS_KEY_PREFIX.concat(d.getUserId().toString());
+                return userProviderCacheKey.buildUserInfoKey(d.getUserId().toString());
             }, userDTO -> userDTO, (k1, k2) -> k1));
 
             redisTemplate.opsForValue().multiSet(keyUserDTOMap);

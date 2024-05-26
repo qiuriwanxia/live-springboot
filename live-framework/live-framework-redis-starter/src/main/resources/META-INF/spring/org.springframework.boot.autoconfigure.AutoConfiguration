@@ -1,1 +1,2 @@
 org.example.config.ShardJdbcDatasourceAutoinitConfig
+org.example.key.UserProviderCacheKey
