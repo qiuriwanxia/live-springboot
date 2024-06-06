@@ -1,5 +1,6 @@
 package org.example.service.impl;
 
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
 import jakarta.annotation.Resource;
@@ -7,19 +8,30 @@ import org.example.dao.mapper.IUserMapper;
 import org.example.dao.pojo.UserPO;
 import org.example.dto.UserDTO;
 import org.example.key.UserProviderCacheKey;
+import org.example.rabbitmq.RabbitMQConfig;
 import org.example.service.IUserService;
 import org.example.util.ConvertBeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SessionCallback;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implements IUserService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(IUserServiceImpl.class);
 
     @Resource
     private IUserMapper userMapper;
@@ -29,6 +41,9 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
 
     @Resource
     private UserProviderCacheKey userProviderCacheKey;
+
+    @Resource
+    private RabbitTemplate rabbitTemplate;
 
     private UserPO convertToUserPo(UserDTO userDTO) {
         return ConvertBeanUtils.convert(userDTO, UserPO.class);
@@ -65,7 +80,7 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
 
         UserDTO convertedToUserDTO = convertToUserDTO(userPO);
 
-        redisTemplate.opsForValue().set(key, convertedToUserDTO);
+        redisTemplate.opsForValue().set(key, convertedToUserDTO,30, TimeUnit.SECONDS);
 
         return convertedToUserDTO;
     }
@@ -75,7 +90,11 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
         if (userDTO == null || userDTO.getUserId() == null) {
             return false;
         }
-        return userMapper.updateById(convertToUserPo(userDTO)) > 0;
+        boolean updateStatus = userMapper.updateById(convertToUserPo(userDTO)) > 0;
+        if (updateStatus){
+            rabbitTemplate.convertAndSend(RabbitMQConfig.COMMON_EXCHANGE,RabbitMQConfig.USER_UPDATE_QUEUE_KEY,new Message(JSON.toJSONBytes(userDTO)));
+        }
+        return updateStatus;
     }
 
     @Override
@@ -127,7 +146,17 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
 
             redisTemplate.opsForValue().multiSet(keyUserDTOMap);
 
+            //管道批量处理
+            redisTemplate.executePipelined(new SessionCallback<Object>() {
+                @Override
+                public <K, V> Object execute(RedisOperations<K, V> operations) throws DataAccessException {
+                    for (String s : keyUserDTOMap.keySet()) {
+                        operations.expire((K) s,30,TimeUnit.SECONDS);
 
+                    }
+                    return null;
+                }
+            });
         }
 
         return userDTOList.stream().collect(Collectors.toMap(UserDTO::getUserId, userDTO -> userDTO, (k1, k2) -> k1));

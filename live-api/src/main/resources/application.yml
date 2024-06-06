@@ -12,3 +12,5 @@ spring:
 dubbo:
   application:
     name: live-api
+  consumer:
+    timeout: 5000
