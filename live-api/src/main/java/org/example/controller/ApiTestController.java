@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiParam;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.example.dto.UserDTO;
 import org.example.interfaces.IUserRpc;
+import org.example.interfaces.IUserTagRpc;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

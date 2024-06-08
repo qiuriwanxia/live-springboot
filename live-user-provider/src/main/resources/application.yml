@@ -50,6 +50,7 @@ spring:
         #理失败后，等待多长时间再尝试重新发送消息。这个参数的默认值是 1 秒。
         #2.max-interval（最大间隔时间）：表示重试过程中的最大时间间隔，也就是每次重试时，
         #最长等待多长时间再尝试重新发送消息。这个参数的默认值是 10 秒。
-
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
 
 

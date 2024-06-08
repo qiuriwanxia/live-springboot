@@ -15,8 +15,8 @@
             <option name="ignoreFieldSuffix" value="" />
             <option name="ignoreTablePrefix" value="" />
             <option name="ignoreTableSuffix" value="" />
-            <option name="moduleName" value="live-id-generate-provider" />
-            <option name="modulePath" value="$PROJECT_DIR$" />
+            <option name="moduleName" value="live-user-provider" />
+            <option name="modulePath" value="$PROJECT_DIR$/live-user-provider" />
             <option name="moduleUIInfoList">
               <list>
                 <ModuleInfoGo>
@@ -26,7 +26,7 @@
                   <option name="encoding" value="${domain.encoding}" />
                   <option name="fileName" value="${domain.fileName}Mapper" />
                   <option name="fileNameWithSuffix" value="${domain.fileName}Mapper.xml" />
-                  <option name="modulePath" value="$PROJECT_DIR$" />
+                  <option name="modulePath" value="$PROJECT_DIR$/live-user-provider" />
                   <option name="packageName" value="mapper" />
                 </ModuleInfoGo>
                 <ModuleInfoGo>
@@ -36,7 +36,7 @@
                   <option name="encoding" value="${domain.encoding}" />
                   <option name="fileName" value="${domain.fileName}ServiceImpl" />
                   <option name="fileNameWithSuffix" value="${domain.fileName}ServiceImpl.java" />
-                  <option name="modulePath" value="$PROJECT_DIR$" />
+                  <option name="modulePath" value="$PROJECT_DIR$/live-user-provider" />
                   <option name="packageName" value="${domain.basePackage}.service.impl" />
                 </ModuleInfoGo>
                 <ModuleInfoGo>
@@ -46,7 +46,7 @@
                   <option name="encoding" value="${domain.encoding}" />
                   <option name="fileName" value="${domain.fileName}Mapper" />
                   <option name="fileNameWithSuffix" value="${domain.fileName}Mapper.java" />
-                  <option name="modulePath" value="$PROJECT_DIR$" />
+                  <option name="modulePath" value="$PROJECT_DIR$/live-user-provider" />
                   <option name="packageName" value="${domain.basePackage}.mapper" />
                 </ModuleInfoGo>
                 <ModuleInfoGo>
@@ -56,7 +56,7 @@
                   <option name="encoding" value="${domain.encoding}" />
                   <option name="fileName" value="${domain.fileName}Service" />
                   <option name="fileNameWithSuffix" value="${domain.fileName}Service.java" />
-                  <option name="modulePath" value="$PROJECT_DIR$" />
+                  <option name="modulePath" value="$PROJECT_DIR$/live-user-provider" />
                   <option name="packageName" value="${domain.basePackage}.service" />
                 </ModuleInfoGo>
               </list>
@@ -67,8 +67,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="TIdGenerateConfig" />
-                  <option name="tableName" value="t_id_generate_config" />
+                  <option name="className" value="TUserTag" />
+                  <option name="tableName" value="t_user_tag" />
                 </TableUIInfo>
               </list>
             </option>
@@ -76,7 +76,7 @@
             <option name="useLombokPlugin" value="true" />
           </GenerateConfig>
         </option>
-        <option name="moduleName" value="live-id-generate-provider" />
+        <option name="moduleName" value="live-user-provider" />
         <option name="projectPath" value="$PROJECT_DIR$" />
         <option name="templateName" value="mybatis-plus3" />
       </TemplateContext>

@@ -4,8 +4,13 @@ import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
 import jakarta.annotation.Resource;
+import org.example.bo.ConvertBeanBase;
+import org.example.constant.CacheAsyncDeleteCode;
 import org.example.dao.mapper.IUserMapper;
+import org.example.dao.pojo.TUserTag;
 import org.example.dao.pojo.UserPO;
+import org.example.dto.CacheAsyncDeleteDTO;
+import org.example.dto.TUserTagDTO;
 import org.example.dto.UserDTO;
 import org.example.key.UserProviderCacheKey;
 import org.example.rabbitmq.RabbitMQConfig;
@@ -45,21 +50,8 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
     @Resource
     private RabbitTemplate rabbitTemplate;
 
-    private UserPO convertToUserPo(UserDTO userDTO) {
-        return ConvertBeanUtils.convert(userDTO, UserPO.class);
-    }
+    ConvertBeanBase convertBeanBase = new ConvertBeanBase<UserPO, UserDTO>(UserPO.class,UserDTO.class);
 
-    private List<UserPO> convertToUserPoList(List<UserDTO> userDTOList) {
-        return ConvertBeanUtils.convertList(userDTOList, UserPO.class);
-    }
-
-    private List<UserDTO> convertToUserDTOList(List<UserPO> userPOList) {
-        return ConvertBeanUtils.convertList(userPOList, UserDTO.class);
-    }
-
-    private UserDTO convertToUserDTO(UserPO userPO) {
-        return ConvertBeanUtils.convert(userPO, UserDTO.class);
-    }
 
 
     public UserDTO getByUserId(Long userId) {
@@ -78,7 +70,7 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
 
         UserPO userPO = userMapper.selectById(userId);
 
-        UserDTO convertedToUserDTO = convertToUserDTO(userPO);
+        UserDTO convertedToUserDTO = (UserDTO) convertBeanBase.convertToV(userPO);
 
         redisTemplate.opsForValue().set(key, convertedToUserDTO,30, TimeUnit.SECONDS);
 
@@ -90,9 +82,12 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
         if (userDTO == null || userDTO.getUserId() == null) {
             return false;
         }
-        boolean updateStatus = userMapper.updateById(convertToUserPo(userDTO)) > 0;
+        boolean updateStatus = userMapper.updateById((UserPO) convertBeanBase.convertToK(userDTO)) > 0;
         if (updateStatus){
-            rabbitTemplate.convertAndSend(RabbitMQConfig.COMMON_EXCHANGE,RabbitMQConfig.USER_UPDATE_QUEUE_KEY,new Message(JSON.toJSONBytes(userDTO)));
+            rabbitTemplate.convertAndSend(RabbitMQConfig.COMMON_EXCHANGE,RabbitMQConfig.USER_UPDATE_QUEUE_KEY,
+                    new Message(CacheAsyncDeleteDTO.buildThenTobytes(
+                            CacheAsyncDeleteCode.USER_TAG_DELETE.getCode(),JSON.toJSONString(userDTO)))
+            );
         }
         return updateStatus;
     }
@@ -102,7 +97,7 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
         if (userDTO == null || userDTO.getUserId() == null) {
             return false;
         }
-        return userMapper.insert(convertToUserPo(userDTO)) > 0;
+        return userMapper.insert((UserPO) convertBeanBase.convertToK(userDTO)) > 0;
     }
 
     @Override
@@ -132,7 +127,7 @@ public class IUserServiceImpl extends ServiceImpl<IUserMapper, UserPO> implement
 
         longListMap.values().parallelStream().forEach(ids -> {
             List<UserPO> userPOS = userMapper.selectBatchIds(ids);
-            List<UserDTO> userDTOList1 = convertToUserDTOList(userPOS);
+            List<UserDTO> userDTOList1 = convertBeanBase.convertToVList(userPOS);
             queryUserUserDTOList.addAll(userDTOList1);
         });
 
