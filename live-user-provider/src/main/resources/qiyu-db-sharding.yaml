@@ -2,7 +2,7 @@ dataSources:
   user_master:  ##新表，重建的分表
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbcUrl: jdbc:mysql://localhost:8808/qiyu_live_user?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+    jdbcUrl: jdbc:mysql://host.docker.internal:8808/qiyu_live_user?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
     username: root
     password: root
     idle-timeout: 5 #单位：分钟
@@ -16,7 +16,7 @@ dataSources:
   user_slave0:  ##新表，重建的分表
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbcUrl: jdbc:mysql://localhost:8809/qiyu_live_user?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+    jdbcUrl: jdbc:mysql://host.docker.internal:8809/qiyu_live_user?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
     username: root
     password: root
     idle-timeout: 5 #单位：分钟

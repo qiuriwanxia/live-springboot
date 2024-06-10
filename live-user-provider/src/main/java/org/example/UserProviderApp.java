@@ -1,6 +1,7 @@
 package org.example;
 
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.example.constant.UserTagsEnum;
 import org.example.service.TUserTagService;
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 @EnableDiscoveryClient
 @EnableDubbo
 @MapperScan(basePackages = {"org.example.dao.mapper"})
+@Slf4j
 public class UserProviderApp implements CommandLineRunner {
 
     @Resource
@@ -39,18 +41,19 @@ public class UserProviderApp implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 
+        tUserTagService.setTag(1L, UserTagsEnum.IS_OLD_USER);
 
+        TimeUnit.SECONDS.sleep(1);
 
-//        tUserTagService.setTag(1L, UserTagsEnum.IS_OLD_USER);
+        boolean containTag = tUserTagService.containTag(1L, UserTagsEnum.IS_OLD_USER);
+        log.info("是否是老用户 {}", containTag);
+        containTag = tUserTagService.containTag(1L, UserTagsEnum.IS_VIP);
+        log.info(UserTagsEnum.IS_VIP.getDesc(),containTag);
 
-//        TimeUnit.SECONDS.sleep(1);
-//
-//        System.out.println("是否是老用户"+tUserTagService.containTag(1L,UserTagsEnum.IS_OLD_USER));
-//        System.out.println(UserTagsEnum.IS_VIP.getDesc()+tUserTagService.containTag(1L,UserTagsEnum.IS_VIP));
-//
         tUserTagService.cancelTag(1L, UserTagsEnum.IS_OLD_USER);
-//
-//        TimeUnit.SECONDS.sleep(1);
-//        System.out.println("取消后是否是老用户"+tUserTagService.containTag(1L,UserTagsEnum.IS_OLD_USER));
+
+        TimeUnit.SECONDS.sleep(1);
+        containTag = tUserTagService.containTag(1L, UserTagsEnum.IS_OLD_USER);
+        log.info("取消后是否是老用户 {}",containTag);
     }
 }

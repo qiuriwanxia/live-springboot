@@ -12,7 +12,6 @@
     <artifactId>live-user-provider</artifactId>
 
     <properties>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <curator.version>2.12.0</curator.version>
         <mybatis.version>3.5.1</mybatis.version>
@@ -94,16 +93,48 @@
         </dependency>
 
 
-
     </dependencies>
     <build>
+        <finalName>${artifactId}-docker</finalName>
         <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <executions>
+                    <!-- 当 mvn 执行 install 操作的时候，执行 docker 的 build
+                   -->
+                    <execution>
+                        <id>build</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                    </imageTags>
+                    <imageName>${project.build.finalName}</imageName>
+                    <!--指定 Dockerfile 文件的位置-->
+
+                    <dockerDirectory>${project.basedir}/docker</dockerDirectory>
+                    <!-- 指定 jar 包路径，这里对应 Dockerfile 中复制 jar 包
+                   到 docker 容器指定目录配置，也可以写到 Docokerfile 中 -->
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <classifier>exec</classifier>
-                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -7,11 +7,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: host.docker.internal:8848
         group: DEFAULT_GROUP
   #rabbitmq 配置
   rabbitmq:
-    host: localhost
+    host: host.docker.internal
     username: admin
     password: admin123456
     #虚拟主机
@@ -50,6 +50,10 @@ spring:
         #理失败后，等待多长时间再尝试重新发送消息。这个参数的默认值是 1 秒。
         #2.max-interval（最大间隔时间）：表示重试过程中的最大时间间隔，也就是每次重试时，
         #最长等待多长时间再尝试重新发送消息。这个参数的默认值是 10 秒。
+  data:
+    redis:
+      port: 6379
+      host: host.docker.internal
 mybatis-plus:
   mapper-locations: classpath:/mapper/*.xml
 

@@ -4,6 +4,7 @@ package org.example.service.impl;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.example.bo.ConvertBeanBase;
 import org.example.constant.CacheAsyncDeleteCode;
 import org.example.constant.UserTagsEnum;
@@ -36,6 +37,7 @@ import java.util.concurrent.TimeUnit;
  * @description 针对表【t_user_tag(用户标签记录)】的数据库操作Service实现
  * @createDate 2024-06-07 20:15:13
  */
+@Slf4j
 @Service
 public class TUserTagServiceImpl extends ServiceImpl<TUserTagMapper, TUserTag>
         implements TUserTagService {
@@ -145,7 +147,7 @@ public class TUserTagServiceImpl extends ServiceImpl<TUserTagMapper, TUserTag>
 
         Long tagValue = getFieldValue(userId, userTagsEnum);
 
-        System.out.println("tagValue = " + tagValue);
+        log.info("tagValue = " + tagValue);
 
         long tag = userTagsEnum.getTag();
         return (tagValue & tag) == tag;
