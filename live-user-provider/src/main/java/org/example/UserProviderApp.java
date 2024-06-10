@@ -7,11 +7,13 @@ import org.example.constant.UserTagsEnum;
 import org.example.service.TUserTagService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.sql.Time;
@@ -24,10 +26,14 @@ import java.util.concurrent.TimeUnit;
 @EnableDubbo
 @MapperScan(basePackages = {"org.example.dao.mapper"})
 @Slf4j
+@RefreshScope
 public class UserProviderApp implements CommandLineRunner {
 
     @Resource
     private TUserTagService tUserTagService;
+
+    @Value("${version}")
+    private String version;
 
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication(UserProviderApp.class);
@@ -40,6 +46,7 @@ public class UserProviderApp implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        log.info("当前程序版本 {}",version);
 
         tUserTagService.setTag(1L, UserTagsEnum.IS_OLD_USER);
 
