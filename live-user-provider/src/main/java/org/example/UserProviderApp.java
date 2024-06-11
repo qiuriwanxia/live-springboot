@@ -55,7 +55,7 @@ public class UserProviderApp implements CommandLineRunner {
         boolean containTag = tUserTagService.containTag(1L, UserTagsEnum.IS_OLD_USER);
         log.info("是否是老用户 {}", containTag);
         containTag = tUserTagService.containTag(1L, UserTagsEnum.IS_VIP);
-        log.info(UserTagsEnum.IS_VIP.getDesc(),containTag);
+        log.info(UserTagsEnum.IS_VIP.getDesc()+containTag);
 
         tUserTagService.cancelTag(1L, UserTagsEnum.IS_OLD_USER);
 

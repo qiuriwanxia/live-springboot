@@ -16,7 +16,7 @@
 #    host: host.docker.internal
 #    username: admin
 #    password: admin123456
-#    #虚拟主机
+#    #虚拟主机 
 #    virtual-host: /
 #    #端口
 #    port: 5674

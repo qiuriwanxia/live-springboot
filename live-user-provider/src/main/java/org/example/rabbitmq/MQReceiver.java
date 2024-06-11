@@ -2,6 +2,7 @@ package org.example.rabbitmq;
 
 import com.alibaba.fastjson2.JSON;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.example.constant.CacheAsyncDeleteCode;
 import org.example.dto.CacheAsyncDeleteDTO;
 import org.example.dto.TUserTagDTO;
@@ -19,6 +20,7 @@ import static org.example.constant.CacheAsyncDeleteCode.USER_TAG_DELETE;
 /**
  * 消息接收者
  */
+@Slf4j
 @Service
 public class MQReceiver {
 
@@ -27,8 +29,6 @@ public class MQReceiver {
 
     @Resource
     private RedisTemplate<String, UserDTO> redisTemplate;
-
-    private Logger log = Logger.getLogger(String.valueOf(MQReceiver.class));
 
     //方法：接收消息
     @RabbitListener(queues = RabbitMQConfig.USER_UPDATE_TTL_QUEUE)
@@ -43,15 +43,19 @@ public class MQReceiver {
             String json = cacheAsyncDeleteDTO.getJson();
             String key;
             if (USER_TAG_DELETE.code == code) {
-                TUserTagDTO tUserTagDTO = JSON.parseObject(str, TUserTagDTO.class);
-                key = userProviderCacheKey.buildUserTagLockKey(tUserTagDTO.getUserId());
+                TUserTagDTO tUserTagDTO = JSON.parseObject(json, TUserTagDTO.class);
+                log.info("tUserTagDTO =  {}", JSON.toJSONString(tUserTagDTO));
+                key = userProviderCacheKey.buildUserTagKey(tUserTagDTO.getUserId());
             } else {
-                UserDTO userDTO = JSON.parseObject(str, UserDTO.class);
+                UserDTO userDTO = JSON.parseObject(json, UserDTO.class);
+                log.info("userDTO =  {}", JSON.toJSONString(userDTO));
                 key = userProviderCacheKey.buildUserInfoKey(userDTO.getUserId().toString());
             }
 
             //删除缓存
-            redisTemplate.delete(key);
+            Boolean cacheDel = redisTemplate.delete(key);
+
+            log.info("key {} 缓存删除 {}",key,cacheDel);
         }
 
     }
