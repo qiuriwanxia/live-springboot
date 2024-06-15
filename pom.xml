@@ -16,6 +16,7 @@
         <module>live-framework</module>
         <module>live-id-generate-interface</module>
         <module>live-id-generate-provider</module>
+        <module>live-gateway</module>
     </modules>
 
     <properties>

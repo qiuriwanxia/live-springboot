@@ -1,0 +1,13 @@
+
+spring:
+  cloud:
+    nacos:
+      config:
+        import-check:
+          enabled: false
+        server-addr: host.docker.internal:8848
+        file-extension: yml
+        group: DEFAULT_GROUP
+        namespace: 05e9183f-7ab2-45fb-8a8e-ed4e4caf2e63
+  config:
+    import: optional:nacos:gateway.yml
