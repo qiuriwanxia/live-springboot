@@ -13,6 +13,7 @@ import org.example.dao.pojo.TSms;
 import org.example.dto.TSmsDto;
 import org.example.key.LiveMsgCacheKey;
 import org.example.service.TSmsService;
+import org.example.util.CommonExecutorPool;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -59,14 +60,16 @@ public class TSmsServiceImpl extends ServiceImpl<TSmsMapper, TSms>
         //生成六位数验证码
         int code = ThreadLocalRandom.current().nextInt(100000, 999999);
 
-        //模拟发送验证码
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        CommonExecutorPool.msgExecutorPool.execute(()-> {
+                    //模拟发送验证码
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
 
-        log.info("{} 发送验证码成功 code : {}",phone,code);
+                    log.info("{} 发送验证码成功 code : {}", phone, code);
+                });
 
         //存入缓存
         redisTemplate.opsForValue().set(key,code,60,TimeUnit.SECONDS);
