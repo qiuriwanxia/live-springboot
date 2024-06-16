@@ -15,11 +15,11 @@ public class MsgRcpImpl implements MsgRpc {
 
     @Override
     public MsgSendResultEnum sendMsg(String phone) {
-        return null;
+        return tSmsService.sendMsg(phone);
     }
 
     @Override
     public MsgSendResultEnum checkMsgCode(String phone, String code) {
-        return null;
+        return tSmsService.checkMsgCode(phone,code);
     }
 }

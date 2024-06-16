@@ -90,7 +90,7 @@ public class TSmsServiceImpl extends ServiceImpl<TSmsMapper, TSms>
 
         String key = liveMsgCacheKey.buildMsgCodeKey(phone);
 
-        String msgCode = (String) redisTemplate.opsForValue().get(key);
+        String msgCode =  String.valueOf(redisTemplate.opsForValue().get(key));
 
         if (code.equals(msgCode)){
             return MsgSendResultEnum.CHECK_SUCCESS;
