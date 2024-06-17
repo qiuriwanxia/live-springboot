@@ -31,7 +31,8 @@ public class IAccountTokenServiceImpl implements IAccountTokenService {
     @Override
     public Long getUserIdByToken(String token) {
         String buildUserLoginToken = liveAccountCacheKey.buildUserLoginToken(token);
-        Long userId = (long)redisTemplate.opsForValue().get(buildUserLoginToken);
+        Number number = (Number) redisTemplate.opsForValue().get(buildUserLoginToken);
+        Long userId =number.longValue();
         return userId;
     }
 }

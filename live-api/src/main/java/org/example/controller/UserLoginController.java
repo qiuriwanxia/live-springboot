@@ -24,6 +24,9 @@ public class UserLoginController {
         if (200==webResponseVO.getCode()) {
             UserLoginVo userLoginVo = (UserLoginVo) webResponseVO.getData();
             Cookie cookie = new Cookie("tk", userLoginVo.getToken());
+            cookie.setDomain("qiyu.live.com");
+            cookie.setPath("/");
+            cookie.setMaxAge(30 * 24 * 3600);
             response.setHeader("Access-Control-Allow-Credentials", "true");
             response.addCookie(cookie);
         }

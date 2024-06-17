@@ -15,6 +15,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -42,8 +43,13 @@ public class AccountCheckFilter implements GlobalFilter {
 
         //如果不在白名单，检查cookie
 
-        HttpCookie httpCookie = request.getCookies().get("tk").get(0);
+        List<HttpCookie> tk = request.getCookies().get("tk");
 
+        if (tk==null||tk.isEmpty()){
+            return Mono.empty();
+        }
+
+        HttpCookie httpCookie = tk.get(0);
 
         String cookieValue = httpCookie.getValue();
 
