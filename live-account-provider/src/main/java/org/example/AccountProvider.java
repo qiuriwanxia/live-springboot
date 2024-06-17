@@ -9,14 +9,12 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableDubbo
-public class GateWayApp {
+public class AccountProvider {
 
     public static void main(String[] args) {
-
         SpringApplication springApplication = new SpringApplication();
-        springApplication.setWebApplicationType(WebApplicationType.REACTIVE);
-        springApplication.run(GateWayApp.class);
-
+        springApplication.setWebApplicationType(WebApplicationType.NONE);
+        springApplication.run(AccountProvider.class);
     }
 
 }

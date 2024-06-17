@@ -23,7 +23,7 @@ public class UserLoginController {
         WebResponseVO webResponseVO = userLoginService.login(phone,code);
         if (200==webResponseVO.getCode()) {
             UserLoginVo userLoginVo = (UserLoginVo) webResponseVO.getData();
-            Cookie cookie = new Cookie("cook", userLoginVo.getToken());
+            Cookie cookie = new Cookie("tk", userLoginVo.getToken());
             response.setHeader("Access-Control-Allow-Credentials", "true");
             response.addCookie(cookie);
         }

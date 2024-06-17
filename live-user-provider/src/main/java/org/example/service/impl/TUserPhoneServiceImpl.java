@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.base.Strings;
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.example.bo.ConvertBeanBase;
 import org.example.constant.CommonStatusEnum;
 import org.example.constant.PhoneLoginEnum;
@@ -16,6 +17,7 @@ import org.example.dao.pojo.TUserPhone;
 import org.example.dto.UserDTO;
 import org.example.dto.UserLoginDTO;
 import org.example.dto.TUserPhoneDTO;
+import org.example.interfaces.IAccountTokenRPC;
 import org.example.interfaces.IdBuilderRpc;
 import org.example.interfaces.enums.IdBuilderEnum;
 import org.example.key.UserProviderCacheKey;
@@ -53,6 +55,9 @@ public class TUserPhoneServiceImpl extends ServiceImpl<TUserPhoneMapper, TUserPh
     @DubboReference
     private IdBuilderRpc idBuilderRpc;
 
+    @DubboReference
+    private IAccountTokenRPC iAccountTokenRPC;
+
     @Resource
     private IUserServiceImpl userService;
 
@@ -80,7 +85,7 @@ public class TUserPhoneServiceImpl extends ServiceImpl<TUserPhoneMapper, TUserPh
             redisTemplate.delete(userProviderCacheKey.buildUserPhoneKey(phone));
         }
 
-        String loginToken = createLoginToken(tUserPhoneDTO.getUserId());
+        String loginToken = iAccountTokenRPC.createAndSaveLoginToken(tUserPhoneDTO.getUserId());
         return UserLoginDTO.loginSuccess(tUserPhoneDTO.getUserId(), phone, loginToken);
     }
 
