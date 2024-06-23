@@ -38,7 +38,7 @@ public class NettyImStrClient {
         byte[] bytes = "测试消息".getBytes(StandardCharsets.UTF_8);
 
         imMessage.setLength(bytes.length);
-        imMessage.setBytes(bytes);
+        imMessage.setBody(bytes);
 
         channel.writeAndFlush(imMessage);
     }

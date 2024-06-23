@@ -38,7 +38,7 @@ public class ImByteToMessageDecode extends ByteToMessageDecoder {
             imMessage.setMagic(magic);
             imMessage.setCode(code);
             imMessage.setLength(length);
-            imMessage.setBytes(body);
+            imMessage.setBody(body);
 
             log.info("接收到消息 {}", JSON.toJSONString(imMessage));
 

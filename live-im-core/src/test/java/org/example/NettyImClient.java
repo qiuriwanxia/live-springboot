@@ -41,7 +41,7 @@ public class NettyImClient {
         byte[] bytes = "你好".getBytes();
 
         imMessage.setLength(bytes.length);
-        imMessage.setBytes(bytes);
+        imMessage.setBody(bytes);
 
         channel.writeAndFlush(imMessage);
     }
