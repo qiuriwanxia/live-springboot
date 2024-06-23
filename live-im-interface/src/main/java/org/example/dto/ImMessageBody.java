@@ -16,6 +16,16 @@ public class ImMessageBody implements Serializable {
 
     private String token;
 
+
+    public static ImMessageBody buildSuccess(Long userId,String appid,String token){
+        ImMessageBody imMessageBody = new ImMessageBody();
+        imMessageBody.setData("true");
+        imMessageBody.setToken(token);
+        imMessageBody.setAppid(appid);
+        imMessageBody.setUserId(userId);
+        return imMessageBody;
+    }
+
     public ImMessageBody() {
     }
 

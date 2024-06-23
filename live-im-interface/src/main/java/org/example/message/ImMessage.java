@@ -3,7 +3,7 @@ package org.example.message;
 
 import org.example.dto.ImMessageBody;
 
-public class ImMessage {
+public class  ImMessage {
 
     private short magic;
 

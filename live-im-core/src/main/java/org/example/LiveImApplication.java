@@ -1,6 +1,7 @@
 package org.example;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.example.handler.ImMessageHandlerContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
@@ -19,6 +20,7 @@ public class LiveImApplication {
     public static void main(String[] args) {
 
         SpringApplication springApplication = new SpringApplication();
+        springApplication.addInitializers();
         springApplication.setWebApplicationType(WebApplicationType.NONE);
         ConfigurableApplicationContext run = springApplication.run(LiveImApplication.class);
         LiveImApplication bean = run.getBean(LiveImApplication.class);

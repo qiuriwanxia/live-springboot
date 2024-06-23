@@ -1,5 +1,6 @@
 package org.example;
 
+import com.alibaba.fastjson.JSON;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -7,16 +8,28 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import jakarta.annotation.Resource;
 import org.example.constant.ImMessageMagic;
 import org.example.decode.ImByteToMessageDecode;
+import org.example.dto.ImMessageBody;
 import org.example.encode.ImMessageToByteEncode;
+import org.example.enums.ImMessageEnum;
+import org.example.interfaces.ImTokenRpc;
 import org.example.message.ImMessage;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 
+@SpringBootTest
 public class NettyImClient {
 
-    public static void main(String[] args) throws InterruptedException {
+    @Resource
+    private ImTokenRpc imTokenRpc;
+
+    @Test
+    public void test1() throws InterruptedException {
 
         ChannelFuture future = new Bootstrap()
                 .group(new NioEventLoopGroup())
@@ -30,20 +43,33 @@ public class NettyImClient {
                         pipeline.addLast( new ImMessageToByteEncode());
 
                     }
-                }).connect(new InetSocketAddress(8989)).sync();
+                }).connect(new InetSocketAddress(9191)).sync();
 
         Channel channel = future.channel();
 
         ImMessage imMessage = new ImMessage();
         imMessage.setMagic(ImMessageMagic.magic);
-        imMessage.setCode(12);
+        imMessage.setCode(ImMessageEnum.LOGIN_MESSAGE.getCode());
 
-        byte[] bytes = "你好".getBytes();
+        //获取用户token
+        String token = imTokenRpc.createToken(10086L, "1");
 
-        imMessage.setLength(bytes.length);
-        imMessage.setBody(bytes);
+        ImMessageBody imMessageBody = new ImMessageBody();
+        imMessageBody.setAppid("1");
+        imMessageBody.setToken(token);
+        imMessageBody.setData("");
+
+
+        byte[] jsonBytes = JSON.toJSONBytes(imMessageBody);
+        imMessage.setLength(jsonBytes.length);
+        imMessage.setBody(jsonBytes);
 
         channel.writeAndFlush(imMessage);
+
+
+        TimeUnit.SECONDS.sleep(10);
+
+        channel.close();
     }
 
 }
