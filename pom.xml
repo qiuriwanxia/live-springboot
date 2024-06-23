@@ -21,6 +21,9 @@
         <module>live-msg-interface</module>
         <module>live-account-interface</module>
         <module>live-account-provider</module>
+        <module>live-im-core</module>
+        <module>live-im-interface</module>
+        <module>live-im-provider</module>
     </modules>
 
     <properties>

@@ -33,7 +33,7 @@ public class MsgApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        MsgSendResultEnum msgSendResultEnum = tSmsService.sendMsg("17349752926");
+        MsgSendResultEnum msgSendResultEnum = tSmsService.sendMsg("");
         System.out.println("msgSendResultEnum = " + msgSendResultEnum);
     }
 }
