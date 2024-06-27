@@ -12,6 +12,8 @@ public class ImMessageBody implements Serializable {
 
     private Long userId;
 
+    private String messageType;
+
     private String data;
 
     private String token;
@@ -66,5 +68,13 @@ public class ImMessageBody implements Serializable {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(String messageType) {
+        this.messageType = messageType;
     }
 }

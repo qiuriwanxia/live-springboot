@@ -24,6 +24,9 @@
         <module>live-im-core</module>
         <module>live-im-interface</module>
         <module>live-im-provider</module>
+        <module>live-im-router-interface</module>
+        <module>live-im-router-provider</module>
+        <module>live-im-message-test</module>
     </modules>
 
     <properties>

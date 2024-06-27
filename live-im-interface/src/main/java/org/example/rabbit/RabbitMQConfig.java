@@ -1,0 +1,26 @@
+package org.example.rabbit;
+
+
+
+import javax.naming.Binding;
+import java.util.Queue;
+
+
+public class RabbitMQConfig {
+
+    public static final String IM_EXCHANGE = "im_ex";
+
+
+
+    //定义队列名
+
+    public static final String IM_BIZ_QUEUE = "im_ex-queue";
+
+
+    public static final String IM_BIZ_KEY = "im-biz-key";
+
+
+
+
+}
+

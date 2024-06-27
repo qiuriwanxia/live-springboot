@@ -7,6 +7,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.example.decode.ImByteToMessageDecode;
 import org.example.encode.ImMessageToByteEncode;
@@ -21,6 +22,9 @@ import java.util.concurrent.ThreadLocalRandom;
 @Configuration
 public class NettyImServerApplication implements InitializingBean {
 
+
+    @Resource
+    private ImMessageHandler imMessageHandler;
 
     @Value("${netty.port}")
     public int port;
@@ -48,7 +52,7 @@ public class NettyImServerApplication implements InitializingBean {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast(new ImByteToMessageDecode());
                         pipeline.addLast( new ImMessageToByteEncode());
-                        pipeline.addLast(new ImMessageHandler());
+                        pipeline.addLast(imMessageHandler);
                     }
                 }).bind(getPort()).sync();
 

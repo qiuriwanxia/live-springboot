@@ -15,7 +15,10 @@
     <file url="file://$PROJECT_DIR$/live-id-generate-provider/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-im-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-im-interface/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/live-im-message-test/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-im-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/live-im-router-interface/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/live-im-router-provider/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-msg-interface/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-msg-provider/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-user-interface/src/main/java" charset="UTF-8" />

@@ -13,6 +13,10 @@ public class ChannelHandlerContextCache {
         channelHandlerContextMap.put(userId,channelHandlerContext);
     }
 
+    public static ChannelHandlerContext get(Long userId){
+        return channelHandlerContextMap.get(userId);
+    }
+
     public static void remove(Long userId){
         channelHandlerContextMap.remove(userId);
     }

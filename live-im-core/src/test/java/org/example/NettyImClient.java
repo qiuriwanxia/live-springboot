@@ -12,6 +12,7 @@ import jakarta.annotation.Resource;
 import org.example.constant.ImMessageMagic;
 import org.example.decode.ImByteToMessageDecode;
 import org.example.dto.ImMessageBody;
+import org.example.dto.MessageDTO;
 import org.example.encode.ImMessageToByteEncode;
 import org.example.enums.ImMessageEnum;
 import org.example.interfaces.ImTokenRpc;
@@ -49,7 +50,7 @@ public class NettyImClient {
 
         ImMessage imMessage = new ImMessage();
         imMessage.setMagic(ImMessageMagic.magic);
-        imMessage.setCode(ImMessageEnum.LOGIN_MESSAGE.getCode());
+        imMessage.setCode(ImMessageEnum.BIZ_MESSAGE.getCode());
 
         //获取用户token
         String token = imTokenRpc.createToken(10086L, "1");
@@ -57,6 +58,12 @@ public class NettyImClient {
         ImMessageBody imMessageBody = new ImMessageBody();
         imMessageBody.setAppid("1");
         imMessageBody.setToken(token);
+
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setUserId(10000L);
+        messageDTO.setrUserId(10086L);
+        messageDTO.setContent("这是10000发给10086的消息");
+
         imMessageBody.setData("");
 
 

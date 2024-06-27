@@ -1,0 +1,11 @@
+server:
+  port: 99
+spring:
+  application:
+    name: live-im-message-test
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        group: DEFAULT_GROUP
+        namespace: 05e9183f-7ab2-45fb-8a8e-ed4e4caf2e63

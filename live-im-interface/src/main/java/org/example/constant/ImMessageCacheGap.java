@@ -2,6 +2,6 @@ package org.example.constant;
 
 public class ImMessageCacheGap {
 
-    public final static double VALUE = 30;
+    public final static int VALUE = 30;
 
 }

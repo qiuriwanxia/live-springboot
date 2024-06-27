@@ -11,7 +11,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class ImTokenServiceImpl implements ImTokenService {
+public class   ImTokenServiceImpl implements ImTokenService {
 
 
     @Resource

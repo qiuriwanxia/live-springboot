@@ -3,15 +3,22 @@ package org.example.handler.types;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.nacos.shaded.com.google.common.base.Strings;
 import io.netty.channel.ChannelHandlerContext;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.example.cache.ChannelHandlerContextCache;
 import org.example.config.ImAttributeKey;
+import org.example.constant.ImMessageConstans;
 import org.example.dto.ImMessageBody;
 import org.example.handler.ImMessageStrategy;
 import org.example.interfaces.ImTokenRpc;
 import org.example.message.ImMessage;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
@@ -21,6 +28,10 @@ public class LoginMessageHandler implements ImMessageStrategy {
     @DubboReference
     private ImTokenRpc imTokenRpc;
 
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+
     @Override
     public void handleMessage(ChannelHandlerContext channelHandlerContext, ImMessage imMessage) {
         log.info("开始处理登录消息");
@@ -29,6 +40,7 @@ public class LoginMessageHandler implements ImMessageStrategy {
 
         if (body==null||body.length==0){
             channelHandlerContext.close();
+            return;
         }
 
         ImMessageBody imMessageBody = JSON.parseObject(new String(body), ImMessageBody.class);
@@ -36,6 +48,7 @@ public class LoginMessageHandler implements ImMessageStrategy {
 
         //消息处理逻辑
         String token = imMessageBody.getToken();
+        String appid = imMessageBody.getAppid();
 
         if (Strings.isNullOrEmpty(token)){
             //没有token不能建立连接
@@ -57,6 +70,17 @@ public class LoginMessageHandler implements ImMessageStrategy {
         imMessage.setBody(JSON.toJSONBytes(imMessageBody));
 
         channelHandlerContext.attr(ImAttributeKey.USER_ID_ATTR).set(userId);
+        channelHandlerContext.attr(ImAttributeKey.APP_ID).set(appid);
+
+        //缓存当前用户登录的服务器ip
+        String hostAddress = null;
+        try {
+            hostAddress = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+        String cacheKey = ImMessageConstans.USER_BIND_IP_CACHE_KEY + userId + ":" + appid;
+        stringRedisTemplate.opsForValue().set(cacheKey,hostAddress,5, TimeUnit.MINUTES);
 
         ChannelHandlerContextCache.add(userId,channelHandlerContext);
 

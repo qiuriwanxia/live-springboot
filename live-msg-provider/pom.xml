@@ -85,5 +85,20 @@
             <artifactId>live-framework-redis-starter</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!--rabbitmq-需要的 AMQP 依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>live-im-interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>live-im-router-interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

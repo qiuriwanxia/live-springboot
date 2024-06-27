@@ -5,10 +5,12 @@ import io.netty.channel.ChannelHandlerContext;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.example.cache.ChannelHandlerContextCache;
+import org.example.constant.ImMessageConstans;
 import org.example.dto.ImMessageBody;
 import org.example.handler.ImMessageStrategy;
 import org.example.interfaces.ImTokenRpc;
 import org.example.message.ImMessage;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,6 +19,10 @@ public class LoginOutMessageHandler implements ImMessageStrategy {
 
     @Resource
     private ImTokenRpc imTokenRpc;
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+
 
     @Override
     public void handleMessage(ChannelHandlerContext channelHandlerContext, ImMessage imMessage) {
@@ -32,6 +38,7 @@ public class LoginOutMessageHandler implements ImMessageStrategy {
 
 
         Long userId = imMessageBody.getUserId();
+        String appid = imMessageBody.getAppid();
         String token = imMessageBody.getToken();
 
         if (userId==null){
@@ -40,6 +47,10 @@ public class LoginOutMessageHandler implements ImMessageStrategy {
 
         //删除缓存
         ChannelHandlerContextCache.remove(userId);
+
+        String cacheKey = ImMessageConstans.USER_BIND_IP_CACHE_KEY + userId + ":" + appid;
+
+        stringRedisTemplate.delete(cacheKey);
 
         channelHandlerContext.fireChannelRead(imMessage);
 

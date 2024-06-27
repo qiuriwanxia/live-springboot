@@ -1,0 +1,70 @@
+server:
+  port: 86
+netty:
+  port: 9191
+spring:
+  application:
+    name: live-im-core
+  config:
+    import: "optional:nacos:${spring.application.name}"
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://host.docker.internal:8808/qiyu_live_msg?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root
+  rabbitmq:
+    host: host.docker.internal
+    username: admin
+    password: admin123456
+    #虚拟主机
+    virtual-host: /
+    #端口
+    port: 5674
+    listener:
+      simple:
+        #消费者最小数量
+        concurrency: 10
+        #消费者最大数量
+        max-concurrency: 10
+        #限制消费者，每次只能处理一条消息，处理完才能继续下一条消息
+        prefetch: 1
+        #启动时是否默认启动容器，默认为 true
+        auto-startup: true
+        #被拒绝时重新进入队列的
+        default-requeue-rejected: true
+    template:
+      retry:
+        #启用消息重试机制，默认为 false
+        enabled: true
+        #初始重试间隔时间
+        initial-interval: 1000ms
+        #重试最大次数，默认为 3 次
+        max-attempts: 3
+        #重试最大时间间隔，默认 10000ms
+        max-interval: 10000ms
+        #重试的间隔乘数，
+        #配置 2 的话，第一次等 1s，第二次等 2s，第三次等 4s
+        multiplier: 1
+
+        #在 RabbitMQ 中，initial-interval 和 max-interval 是用于指定消息重试机制的两个参数，
+        #它们的区别如下：
+        #1. initial-interval（初始间隔时间）：表示第一次重试的时间间隔，也就是在消息第一次处
+        #理失败后，等待多长时间再尝试重新发送消息。这个参数的默认值是 1 秒。
+        #2.max-interval（最大间隔时间）：表示重试过程中的最大时间间隔，也就是每次重试时，
+        #最长等待多长时间再尝试重新发送消息。这个参数的默认值是 10 秒。
+  cloud:
+    nacos:
+      discovery:
+        server-addr: host.docker.internal:8848
+        group: DEFAULT_GROUP
+        namespace: 05e9183f-7ab2-45fb-8a8e-ed4e4caf2e63
+  data:
+    redis:
+      port: 6379
+      host: host.docker.internal
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+
