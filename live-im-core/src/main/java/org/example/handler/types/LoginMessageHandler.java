@@ -10,9 +10,12 @@ import org.example.cache.ChannelHandlerContextCache;
 import org.example.config.ImAttributeKey;
 import org.example.constant.ImMessageConstans;
 import org.example.dto.ImMessageBody;
+import org.example.enums.ImMessageEnum;
+import org.example.handler.ImMessageHandlerContext;
 import org.example.handler.ImMessageStrategy;
-import org.example.interfaces.ImTokenRpc;
+import org.example.rpc.interfaces.ImTokenRpc;
 import org.example.message.ImMessage;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -81,6 +84,13 @@ public class LoginMessageHandler implements ImMessageStrategy {
         }
         String cacheKey = ImMessageConstans.USER_BIND_IP_CACHE_KEY + userId + ":" + appid;
         stringRedisTemplate.opsForValue().set(cacheKey,hostAddress,5, TimeUnit.MINUTES);
+
+        //发送一次心跳信息
+        ImMessage heartBeatMessage = new ImMessage();
+        BeanUtils.copyProperties(imMessage,heartBeatMessage);
+        heartBeatMessage.setCode(ImMessageEnum.HEART_BEAT_MESSAGE.getCode());
+        ImMessageHandlerContext.doChannelRead(channelHandlerContext,heartBeatMessage);
+
 
         ChannelHandlerContextCache.add(userId,channelHandlerContext);
 

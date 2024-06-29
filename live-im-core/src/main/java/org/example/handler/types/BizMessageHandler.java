@@ -8,7 +8,7 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.assertj.core.util.Strings;
 import org.example.dto.ImMessageBody;
 import org.example.handler.ImMessageStrategy;
-import org.example.interfaces.ImTokenRpc;
+import org.example.rpc.interfaces.ImTokenRpc;
 import org.example.message.ImMessage;
 
 import org.example.rabbit.RabbitMQConfig;

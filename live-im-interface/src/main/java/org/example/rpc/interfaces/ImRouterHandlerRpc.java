@@ -1,4 +1,4 @@
-package org.example.rpc;
+package org.example.rpc.interfaces;
 
 import org.example.dto.ImMessageBody;
 

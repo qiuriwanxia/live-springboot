@@ -2,7 +2,7 @@ package org.example.rpc;
 
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.example.interfaces.ImTokenRpc;
+import org.example.rpc.interfaces.ImTokenRpc;
 import org.example.service.ImTokenService;
 
 @DubboService

@@ -8,7 +8,7 @@ import org.example.cache.ChannelHandlerContextCache;
 import org.example.constant.ImMessageConstans;
 import org.example.dto.ImMessageBody;
 import org.example.handler.ImMessageStrategy;
-import org.example.interfaces.ImTokenRpc;
+import org.example.rpc.interfaces.ImTokenRpc;
 import org.example.message.ImMessage;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;

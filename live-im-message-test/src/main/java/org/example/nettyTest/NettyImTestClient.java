@@ -17,7 +17,7 @@ import org.example.dto.ImMessageBody;
 import org.example.dto.MessageDTO;
 import org.example.enums.ImBizMessageEnum;
 import org.example.enums.ImMessageEnum;
-import org.example.interfaces.ImTokenRpc;
+import org.example.rpc.interfaces.ImTokenRpc;
 import org.example.message.ImMessage;
 import org.example.nettyTest.decode.ImByteToMessageDecode;
 import org.example.nettyTest.encode.ImMessageToByteEncode;

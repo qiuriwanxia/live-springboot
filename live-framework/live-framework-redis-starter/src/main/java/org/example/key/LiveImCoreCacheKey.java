@@ -12,7 +12,7 @@ public class LiveImCoreCacheKey extends RedisKeyBuilder{
 
 
     public String buildImHeartBeatKey(Long userId) {
-        return super.getPrefix()+LIVE_HEART_BEAT+super.getSplit()+(userId%10000);
+        return super.getPrefix()+LIVE_HEART_BEAT+super.getSplit()+(userId);
     }
 
 

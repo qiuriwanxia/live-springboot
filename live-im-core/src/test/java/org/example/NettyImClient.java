@@ -15,7 +15,7 @@ import org.example.dto.ImMessageBody;
 import org.example.dto.MessageDTO;
 import org.example.encode.ImMessageToByteEncode;
 import org.example.enums.ImMessageEnum;
-import org.example.interfaces.ImTokenRpc;
+import org.example.rpc.interfaces.ImTokenRpc;
 import org.example.message.ImMessage;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
