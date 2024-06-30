@@ -13,8 +13,8 @@ public class ImRouterRpcImpl implements ImRouterRpc {
     private ImRouterService imRouterService;
 
     @Override
-    public void sendMsg(Long rUserId, ImMessageBody messageBody) {
-        imRouterService.sendMsg(rUserId,messageBody);
+    public boolean sendMsg(Long rUserId, ImMessageBody messageBody) {
+       return imRouterService.sendMsg(rUserId,messageBody);
     }
 
 }

@@ -20,7 +20,7 @@ public class SingleMessageHanlderImpl implements SingleMessageHanlder {
     private ImRouterRpc imRouterRpc;
 
     @Override
-    public void onMessageReceiver(Long ruserId, ImMessageBody imMessageBody) {
+    public boolean onMessageReceiver(Long ruserId, ImMessageBody imMessageBody) {
         String messageType = imMessageBody.getMessageType();
         if (ImBizMessageEnum.LIVING_ROOM_IM_CHAT_BIZ.getCode().equals(messageType)){
             //直播间聊天消息
@@ -31,8 +31,8 @@ public class SingleMessageHanlderImpl implements SingleMessageHanlder {
             jsonObject.put("sendUserid",messageDTO.getUserId());
             jsonObject.put("content",messageDTO.getContent());
             imMessageBody.setData(jsonObject.toJSONString());
-            imRouterRpc.sendMsg(ruserId,imMessageBody);
+            return imRouterRpc.sendMsg(ruserId, imMessageBody);
         }
-
+        return true;
     }
 }

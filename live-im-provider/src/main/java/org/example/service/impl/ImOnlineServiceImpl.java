@@ -3,7 +3,9 @@ package org.example.service.impl;
 import jakarta.annotation.Resource;
 import org.example.service.ImOnlineService;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ImOnlineServiceImpl implements ImOnlineService {
 
     @Resource

@@ -4,6 +4,6 @@ import org.example.dto.ImMessageBody;
 
 public interface SingleMessageHanlder {
 
-    void onMessageReceiver(Long ruserId, ImMessageBody imMessageBody);
+    boolean onMessageReceiver(Long ruserId, ImMessageBody imMessageBody);
 
 }

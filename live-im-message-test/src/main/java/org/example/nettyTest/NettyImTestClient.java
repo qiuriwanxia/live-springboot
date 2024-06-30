@@ -75,6 +75,7 @@ public class NettyImTestClient implements CommandLineRunner {
         ImMessageBody imMessageBody = new ImMessageBody();
         imMessageBody.setAppid("1");
         imMessageBody.setToken(token);
+        imMessageBody.setRetriesNub(2);
         imMessageBody.setMessageType(ImBizMessageEnum.LIVING_ROOM_IM_CHAT_BIZ.getCode());
 
         MessageDTO messageDTO = new MessageDTO();

@@ -14,12 +14,14 @@ public class ImMessageBody implements Serializable {
 
     private String messageType;
 
+    private int retriesNub=1;
+
     private String data;
 
     private String token;
 
 
-    public static ImMessageBody buildSuccess(Long userId,String appid,String token){
+    public static ImMessageBody buildSuccess(Long userId, String appid, String token){
         ImMessageBody imMessageBody = new ImMessageBody();
         imMessageBody.setData("true");
         imMessageBody.setToken(token);
@@ -36,6 +38,14 @@ public class ImMessageBody implements Serializable {
         this.userId = userId;
         this.data = data;
         this.token = token;
+    }
+
+    public int getRetriesNub() {
+        return retriesNub;
+    }
+
+    public void setRetriesNub(int retriesNub) {
+        this.retriesNub = retriesNub;
     }
 
     public String getAppid() {
