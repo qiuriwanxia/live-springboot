@@ -78,7 +78,7 @@ public class TUserPhoneServiceImpl extends ServiceImpl<TUserPhoneMapper, TUserPh
 
             //手机号不存在
             return UserLoginDTO.loginError(PhoneLoginEnum.PHONE_NO_EXIT.getDesc());
-        } else {
+        } else if (tUserPhoneDTO==null){
 
             //创建新用户
             tUserPhoneDTO = registerNewPhoneUser(phone);

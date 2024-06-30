@@ -16,7 +16,7 @@
             <option name="ignoreTablePrefix" value="" />
             <option name="ignoreTableSuffix" value="" />
             <option name="moduleName" value="live-user-provider" />
-            <option name="modulePath" value="$PROJECT_DIR$/live-user-provider" />
+            <option name="modulePath" value="$PROJECT_DIR$/live-living-provider" />
             <option name="moduleUIInfoList">
               <list>
                 <ModuleInfoGo>
@@ -26,7 +26,7 @@
                   <option name="encoding" value="${domain.encoding}" />
                   <option name="fileName" value="${domain.fileName}Mapper" />
                   <option name="fileNameWithSuffix" value="${domain.fileName}Mapper.xml" />
-                  <option name="modulePath" value="$PROJECT_DIR$/live-user-provider" />
+                  <option name="modulePath" value="$PROJECT_DIR$/live-living-provider" />
                   <option name="packageName" value="mapper" />
                 </ModuleInfoGo>
                 <ModuleInfoGo>
@@ -36,7 +36,7 @@
                   <option name="encoding" value="${domain.encoding}" />
                   <option name="fileName" value="${domain.fileName}ServiceImpl" />
                   <option name="fileNameWithSuffix" value="${domain.fileName}ServiceImpl.java" />
-                  <option name="modulePath" value="$PROJECT_DIR$/live-user-provider" />
+                  <option name="modulePath" value="$PROJECT_DIR$/live-living-provider" />
                   <option name="packageName" value="${domain.basePackage}.service.impl" />
                 </ModuleInfoGo>
                 <ModuleInfoGo>
@@ -46,7 +46,7 @@
                   <option name="encoding" value="${domain.encoding}" />
                   <option name="fileName" value="${domain.fileName}Mapper" />
                   <option name="fileNameWithSuffix" value="${domain.fileName}Mapper.java" />
-                  <option name="modulePath" value="$PROJECT_DIR$/live-user-provider" />
+                  <option name="modulePath" value="$PROJECT_DIR$/live-living-provider" />
                   <option name="packageName" value="${domain.basePackage}.mapper" />
                 </ModuleInfoGo>
                 <ModuleInfoGo>
@@ -56,7 +56,7 @@
                   <option name="encoding" value="${domain.encoding}" />
                   <option name="fileName" value="${domain.fileName}Service" />
                   <option name="fileNameWithSuffix" value="${domain.fileName}Service.java" />
-                  <option name="modulePath" value="$PROJECT_DIR$/live-user-provider" />
+                  <option name="modulePath" value="$PROJECT_DIR$/live-living-provider" />
                   <option name="packageName" value="${domain.basePackage}.service" />
                 </ModuleInfoGo>
               </list>
@@ -67,8 +67,12 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="TUserPhone" />
-                  <option name="tableName" value="t_user_phone_00" />
+                  <option name="className" value="TLivingRoom" />
+                  <option name="tableName" value="t_living_room" />
+                </TableUIInfo>
+                <TableUIInfo>
+                  <option name="className" value="TLivingRoomRecord" />
+                  <option name="tableName" value="t_living_room_record" />
                 </TableUIInfo>
               </list>
             </option>

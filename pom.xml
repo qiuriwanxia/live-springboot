@@ -27,6 +27,8 @@
         <module>live-im-router-interface</module>
         <module>live-im-router-provider</module>
         <module>live-im-message-test</module>
+        <module>live-living-interface</module>
+        <module>live-living-provider</module>
     </modules>
 
     <properties>

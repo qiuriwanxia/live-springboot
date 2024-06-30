@@ -2,6 +2,7 @@ package org.example.constant;
 
 public enum CommonStatusEnum {
 
+
     PHONE_VAILD(1,"手机号有效");
 
 

@@ -53,38 +53,9 @@ public class UserProviderApp implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        log.info("当前程序版本 {}",version);
-
-//        String phone = "17349752926";
-//        UserLoginDTO userLoginDTO = tUserPhoneService.login(phone);
+//        log.info("当前程序版本 {}",version);
 //
-//        System.out.println("userLoginDTO = " + userLoginDTO);
 //
-//        List<TUserPhoneDTO> tUserPhoneDTOS = tUserPhoneService.queryByUserId(userLoginDTO.getUserId());
-//        System.out.println("tUserPhoneDTOS = " + tUserPhoneDTOS);
-//
-//        tUserPhoneDTOS = tUserPhoneService.queryByUserId(userLoginDTO.getUserId());
-//        System.out.println("tUserPhoneDTOS = " + tUserPhoneDTOS);
-//
-//        TUserPhoneDTO tUserPhoneDTO = tUserPhoneService.queryByPhone(phone);
-//        System.out.println("tUserPhoneDTO = " + tUserPhoneDTO);
-//        tUserPhoneDTO = tUserPhoneService.queryByPhone(phone);
-//        System.out.println("tUserPhoneDTO1 = " + tUserPhoneDTO);
-
-
-//        tUserTagService.setTag(1L, UserTagsEnum.IS_OLD_USER);
-//
-//        TimeUnit.SECONDS.sleep(1);
-//
-//        boolean containTag = tUserTagService.containTag(1L, UserTagsEnum.IS_OLD_USER);
-//        log.info("是否是老用户 {}", containTag);
-//        containTag = tUserTagService.containTag(1L, UserTagsEnum.IS_VIP);
-//        log.info(UserTagsEnum.IS_VIP.getDesc()+containTag);
-//
-//        tUserTagService.cancelTag(1L, UserTagsEnum.IS_OLD_USER);
-//
-//        TimeUnit.SECONDS.sleep(1);
-//        containTag = tUserTagService.containTag(1L, UserTagsEnum.IS_OLD_USER);
-//        log.info("取消后是否是老用户 {}",containTag);
+//        tUserTagService.setTag(198L, UserTagsEnum.IS_VIP);
     }
 }

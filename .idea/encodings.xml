@@ -19,6 +19,8 @@
     <file url="file://$PROJECT_DIR$/live-im-provider/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-im-router-interface/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-im-router-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/live-living-interface/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/live-living-provider/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-msg-interface/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-msg-provider/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/live-user-interface/src/main/java" charset="UTF-8" />
