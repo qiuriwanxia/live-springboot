@@ -3,6 +3,8 @@ package org.example.message;
 
 import org.example.dto.ImMessageBody;
 
+import java.nio.charset.StandardCharsets;
+
 public class  ImMessage {
 
     private short magic;
@@ -13,6 +15,13 @@ public class  ImMessage {
     private int length;
 
     private byte[] body;
+
+    public static ImMessage build(Integer code,String data){
+        ImMessage imMessage = new ImMessage();
+        imMessage.setCode(code);
+        imMessage.setBody(data.getBytes(StandardCharsets.UTF_8));
+        return imMessage;
+    }
 
     public ImMessage() {
     }

@@ -1,5 +1,6 @@
 package org.example.vo.live.resp;
 
+import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,8 @@ import lombok.Setter;
 public class LivingRoomRespVo {
 
     private Integer id;
+
+    private int type;
 
     private String roomName;
 

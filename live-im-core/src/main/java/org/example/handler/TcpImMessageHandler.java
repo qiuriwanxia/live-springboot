@@ -1,8 +1,12 @@
 package org.example.handler;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.example.cache.ChannelHandlerContextCache;
@@ -15,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @ChannelHandler.Sharable
-public class ImMessageHandler extends SimpleChannelInboundHandler {
+public class TcpImMessageHandler extends SimpleChannelInboundHandler {
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;

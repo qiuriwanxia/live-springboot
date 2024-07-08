@@ -14,7 +14,10 @@ public class LivingRoomRespDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 6429292639484524451L;
+
     private Integer id;
+
+    private int type;
 
     private String roomName;
 

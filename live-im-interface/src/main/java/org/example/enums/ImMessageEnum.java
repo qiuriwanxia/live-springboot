@@ -6,7 +6,8 @@ public enum ImMessageEnum {
     LOGIN_MESSAGE(1001,"登录消息"),
     LOGIN_OUT_MESSAGE(1002,"登出消息"),
     BIZ_MESSAGE(1003,"业务消息"),
-    HEART_BEAT_MESSAGE(1004,"心跳消息");
+    HEART_BEAT_MESSAGE(1004,"心跳消息"),
+    WS_SHARD_MESSAGE(20001,"ws握手成功消息");
 
     private int code;
 
